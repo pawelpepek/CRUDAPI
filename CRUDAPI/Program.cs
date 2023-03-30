@@ -1,8 +1,12 @@
+using CRUDAPI.Configuration;
 using CRUDAPI.Infrastructure;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.AddCRUDs();
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<ApplicationDbContext>();
