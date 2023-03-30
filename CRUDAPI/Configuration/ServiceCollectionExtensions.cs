@@ -7,7 +7,8 @@ public static class ServiceCollectionExtensions
 {
     public static void AddCRUDs(this IServiceCollection services)
     {
-        services.AddCRUD<Product>();
+        services.AddCRUD<Product>()
+                .AddCRUD<Client>();
     }
 
     private static IServiceCollection AddCRUD<TEntity>(this IServiceCollection services)
