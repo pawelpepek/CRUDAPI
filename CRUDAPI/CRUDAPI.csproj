@@ -10,4 +10,12 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="F:\Coding\CRUDAPI\CRUDAPI\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="F:\Coding\CRUDAPI\CRUDAPI\.editorconfig" />
+  </ItemGroup>
+
 </Project>
