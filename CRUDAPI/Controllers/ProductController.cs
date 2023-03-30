@@ -5,32 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CRUDAPI.Controllers;
 
-[ApiController]
 [Route("api/product")]
-public class ProductController : ControllerBase
+public class ProductController : EntityControllerTemplate<Product, ProductDto, CreateProductDto>
 {
-    private readonly ICRUDService<Product> _crud;
-
-    public ProductController(ICRUDService<Product> crud)
-        => _crud = crud;
-
-    [HttpPost]
-    public async Task<int> AddNew([FromBody] CreateProductDto dto)
-        => await _crud.AddEntity(dto);
-
-    [HttpGet]
-    public async Task<List<ProductDto>> GetAll()
-        => await _crud.GetDtos<ProductDto>();
-
-    [HttpGet("{id}")]
-    public async Task<ProductDto> GetProduct(int id)
-        => await _crud.GetDtoById<ProductDto>(id);
-
-    [HttpPut("{id}")]
-    public async Task Update(int id, [FromBody] CreateProductDto dto)
-        => await _crud.UpdateEntity(id, dto);
-
-    [HttpDelete("{id}")]
-    public async Task Remove(int id)
-        => await _crud.RemoveEntity(id);
+    public ProductController(ICRUDService<Product> crud) : base(crud) { }
 }
