@@ -8,15 +8,19 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
 {
     public void Configure(EntityTypeBuilder<Product> builder)
     {
-        builder.Property(t => t.Name)
+        builder.Property(p => p.Name)
                .HasMaxLength(50)
                .IsRequired();
 
-        builder.Property(t => t.Code)
+        builder.Property(p => p.Code)
                .HasMaxLength(20)
                .IsRequired();
 
-        builder.Property(t => t.Quality)
+        builder.Property(p => p.Quality)
                .IsRequired();
+
+        builder.Property(p => p.Price)
+               .IsRequired()
+               .HasColumnType("decimal(8,2)");
     }
 }

@@ -2,7 +2,7 @@
 
 namespace CRUDAPI.Dtos;
 
-public class ProductDto:CreateProductDto
+public class ProductDto : CreateProductDto
 {
     public int Id { get; set; }
 }
