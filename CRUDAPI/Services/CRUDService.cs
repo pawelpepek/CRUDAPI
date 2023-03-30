@@ -3,6 +3,7 @@ using CRUDAPI.Entities;
 using CRUDAPI.Helpers;
 using CRUDAPI.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CRUDAPI.Services;
 
@@ -65,7 +66,19 @@ public class CRUDService<TEntity> : ICRUDService<TEntity> where TEntity : class,
     {
         var entity = await GetEntityById(id);
 
+        if(entity == null)
+        {
+            throw new Exception("Not Found");
+        }
+
         return _mapper.Map<TDto>(entity);
+    }
+
+    public async Task UpdateEntity<TDto>( int id, TDto dto)
+    {
+        var entity = await GetEntityById(id);
+
+        //TODO: Deep Clone
     }
 
     public async Task RemoveEntity(int id)
