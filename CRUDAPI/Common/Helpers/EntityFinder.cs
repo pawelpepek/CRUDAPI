@@ -1,8 +1,9 @@
-﻿using CRUDAPI.Entities;
+﻿using CRUDAPI.Common.Exceptions;
+using CRUDAPI.Entities;
 using CRUDAPI.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-namespace CRUDAPI.Helpers;
+namespace CRUDAPI.Common.Helpers;
 
 public class EntityFinder<TEntity> where TEntity : class, IIdentifiable, new()
 {
@@ -32,7 +33,8 @@ public class EntityFinder<TEntity> where TEntity : class, IIdentifiable, new()
 
         if(entity == null && _showNotFoundError)
         {
-            throw new Exception("Not Found");
+            var entityName = ObjectAttributeGetter.GetObjectName<TEntity>();
+            throw new NotFoundException<int>(entityName, id);
         }
 
         return entity;
