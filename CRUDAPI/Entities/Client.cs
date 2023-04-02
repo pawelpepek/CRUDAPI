@@ -1,5 +1,10 @@
-﻿namespace CRUDAPI.Entities;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
+namespace CRUDAPI.Entities;
+
+
+[DisplayName("klient")]
 public class Client:IIdentifiable
 {
     public int Id { get; set; }

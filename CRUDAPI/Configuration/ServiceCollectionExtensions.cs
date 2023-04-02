@@ -7,7 +7,7 @@ public static class ServiceCollectionExtensions
 {
     public static void AddCRUDs(this IServiceCollection services)
     {
-        services.AddCRUD<Product>()
+        services.AddScoped<ICRUDService<Product>, ProductService>()
                 .AddCRUD<Client>();
     }
 

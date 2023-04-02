@@ -9,6 +9,5 @@ public interface ICRUDService<TEntity> where TEntity : class, IIdentifiable, new
     Task<List<TDto>> GetDtos<TDto>();
     Task<TEntity> GetEntityById(int id);
     Task RemoveEntity(int id);
-    CRUDService<TEntity> SetDuplicates(bool duplicates);
     Task UpdateEntity<TDto>(int id, TDto dto);
 }
