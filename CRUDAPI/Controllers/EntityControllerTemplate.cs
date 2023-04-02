@@ -11,7 +11,7 @@ public class EntityControllerTemplate<TEntity,TDto, TCreateDto>
     where TDto : class
     where TCreateDto : class
 {
-    private readonly ICRUDService<TEntity> _crud;
+    protected readonly ICRUDService<TEntity> _crud;
 
     public EntityControllerTemplate(ICRUDService<TEntity> crud)
         => _crud = crud;
