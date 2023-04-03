@@ -2,7 +2,6 @@
 using CRUDAPI.Common.Exceptions;
 using CRUDAPI.Entities;
 using CRUDAPI.Infrastructure;
-using CRUDAPI.Services.CRUD;
 using Microsoft.EntityFrameworkCore;
 
 namespace CRUDAPI.Services;
