@@ -1,3 +1,4 @@
+using CleanArchitecture.WebUI.Filters;
 using CRUDAPI.Configuration;
 using CRUDAPI.Infrastructure;
 using System.Reflection;
@@ -8,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddCRUDs();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options => options.Filters.Add<ApiExceptionFilterAttribute>());
 builder.Services.AddDbContext<ApplicationDbContext>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

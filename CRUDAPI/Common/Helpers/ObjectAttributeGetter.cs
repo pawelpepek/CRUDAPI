@@ -10,7 +10,9 @@ public static class ObjectAttributeGetter
         var displayName = typeof(TObject).GetCustomAttributes(typeof(DisplayNameAttribute), true)
                                          .FirstOrDefault() as DisplayNameAttribute;
 
-        return displayName?.DisplayName;
+        return displayName == null
+                ? typeof(TObject).Name
+                : displayName.DisplayName;
     }
     public static string GetName<TObject>()
         where TObject : class, IIdentifiable, new()
@@ -56,7 +58,7 @@ public static class ObjectAttributeGetter
                                  .GetProperties()
                                  .FirstOrDefault(p =>
                                  {
-                                     
+
                                      return false;
                                  });
 

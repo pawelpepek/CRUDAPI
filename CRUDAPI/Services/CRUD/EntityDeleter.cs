@@ -21,9 +21,5 @@ public class EntityDeleter<TEntity> : EntityFunctionTemplate<TEntity> where TEnt
             _set.Remove(entity);
             await SaveChanges();
         }
-        else
-        {
-            throw new CustomException($"Nie ma elemntu z id={id}", 404);
-        }
     }
 }
