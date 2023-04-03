@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 using CRUDAPI.Entities;
-using CRUDAPI.Common.Helpers;
 using CRUDAPI.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using CRUDAPI.Common.Exceptions;
+using CRUDAPI.Services.CRUD;
 
 namespace CRUDAPI.Services;
 
@@ -14,10 +13,20 @@ public class CRUDService<TEntity> : ICRUDService<TEntity> where TEntity : class,
     protected readonly CancellationToken _cancellationToken;
     protected readonly DbSet<TEntity> _set;
 
+    protected readonly EntityCreator<TEntity> _creator;
+    protected readonly EntityReader<TEntity> _reader;
+    protected readonly EntityUpdater<TEntity> _updater;
+    protected readonly EntityDeleter<TEntity> _deleter;
+
     public CRUDService(ApplicationDbContext context, IMapper mapper, CancellationToken cancellationToken)
         : this(context, mapper)
     {
         _cancellationToken = cancellationToken;
+
+        _creator = new EntityCreator<TEntity>(context, _mapper, cancellationToken);
+        _reader = new EntityReader<TEntity>(context, _mapper, cancellationToken);
+        _updater = new EntityUpdater<TEntity>(context, _mapper, cancellationToken);
+        _deleter = new EntityDeleter<TEntity>(context, _mapper, cancellationToken);
     }
     public CRUDService(ApplicationDbContext context, IMapper mapper)
     {
@@ -25,69 +34,27 @@ public class CRUDService<TEntity> : ICRUDService<TEntity> where TEntity : class,
         _mapper = mapper;
 
         _set = _context.Set<TEntity>();
-    }
 
-    public async Task<List<TDto>> GetDtos<TDto>()
+        _creator = new EntityCreator<TEntity>(context, _mapper);
+        _reader = new EntityReader<TEntity>(context, _mapper);
+        _updater = new EntityUpdater<TEntity>(context, _mapper);
+        _deleter = new EntityDeleter<TEntity>(context, _mapper);
+    }
+    
+    public CRUDService<TEntity> SetReaderNoTracking()
     {
-        var entities = await GetAll();
-
-        return entities.Any()
-            ? entities.Select(_mapper.Map<TDto>).ToList()
-            : new List<TDto>();
+        _reader.SetAsNoTracking();
+        return this;
     }
-
-    public async Task<List<TEntity>> GetAll()
-            => await _set.ToListAsync(_cancellationToken);
 
     public async Task<int> AddEntity<TDto>(TDto dto) where TDto : class
-    {
-        var entity = _mapper.Map<TEntity>(dto);
+        => await _creator.AddEntity<TDto>(dto);
 
-        if (IsNewEntityOk(entity))
-        {
-            _set.Add(entity);
-            await SaveChanges();
+    public async Task<List<TDto>> GetDtos<TDto>() => await _reader.GetDtos<TDto>();
 
-            return entity.Id;
-        }
-        else
-        {
-            return 0;
-        }
+    public async Task<TDto> GetDtoById<TDto>(int id) => await _reader.GetDtoById<TDto>(id);
 
-    }
+    public async Task UpdateEntity<TDto>(int id, TDto dto) => await _updater.UpdateEntity<TDto>(id, dto);
 
-    protected virtual bool IsNewEntityOk(TEntity entity) => true;
-
-    public async Task<TDto> GetDtoById<TDto>(int id)
-    {
-        var entity = await GetEntityById(id);
-        return _mapper.Map<TDto>(entity);
-    }
-
-    public async Task UpdateEntity<TDto>( int id, TDto dto)
-    {
-        var entity = await GetEntityById(id);
-
-        //TODO: Deep Clone
-    }
-
-    public async Task RemoveEntity(int id)
-    {
-        var entity = await GetEntityById(id);
-
-        if (entity != null)
-        {
-            _set.Remove(entity);
-            await SaveChanges();
-        }
-    }
-
-    public async Task<TEntity> GetEntityById(int id)
-        => await new EntityFinder<TEntity>(_context, _cancellationToken)
-                .ShowNotFoundError()
-                .FindById(id);
-
-    private async Task SaveChanges()
-        => await _context.SaveChangesAsync(_cancellationToken);
+    public async Task RemoveEntity(int id) => await _deleter.RemoveEntity(id);
 }
