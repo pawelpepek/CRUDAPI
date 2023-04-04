@@ -5,7 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CRUDAPI.Services.CRUD;
 
-public class EntityReader<TEntity> : EntityFunctionTemplate<TEntity> where TEntity : class, IIdentifiable, new()
+public class EntityReader<TEntity> : EntityFunctionTemplate<TEntity> 
+    where TEntity : class, IIdentifiable, new()
 {
     protected bool _asNoTracking = true;
 

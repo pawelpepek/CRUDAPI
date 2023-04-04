@@ -5,7 +5,8 @@ using CRUDAPI.Infrastructure;
 
 namespace CRUDAPI.Services.CRUD;
 
-public class EntityDeleter<TEntity> : EntityFunctionTemplate<TEntity> where TEntity : class, IIdentifiable, new()
+public class EntityDeleter<TEntity> : EntityFunctionTemplate<TEntity> 
+    where TEntity : class, IIdentifiable, new()
 {
     public EntityDeleter(ApplicationDbContext context, IMapper mapper, CancellationToken cancellationToken)
         : base(context, mapper, cancellationToken) { }

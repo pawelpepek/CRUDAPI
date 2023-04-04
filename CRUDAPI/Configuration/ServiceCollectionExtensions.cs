@@ -1,5 +1,6 @@
 ﻿using CRUDAPI.Entities;
 using CRUDAPI.Services;
+using CRUDAPI.Services.CRUD;
 
 namespace CRUDAPI.Configuration;
 
@@ -9,7 +10,6 @@ public static class ServiceCollectionExtensions
     {
         services.AddCRUD<Client>()
                 .AddCRUD<Product, ProductService>();
-
     }
 
     private static IServiceCollection AddCRUD<TEntity>(this IServiceCollection services)

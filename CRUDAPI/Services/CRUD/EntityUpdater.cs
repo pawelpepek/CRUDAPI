@@ -4,7 +4,8 @@ using CRUDAPI.Infrastructure;
 
 namespace CRUDAPI.Services.CRUD;
 
-public class EntityUpdater<TEntity> : EntityFunctionTemplate<TEntity> where TEntity : class, IIdentifiable, new()
+public class EntityUpdater<TEntity> : EntityFunctionTemplate<TEntity> 
+    where TEntity : class, IIdentifiable, new()
 {
     public EntityUpdater(ApplicationDbContext context, IMapper mapper, CancellationToken cancellationToken)
         : base(context, mapper, cancellationToken) { }

@@ -2,6 +2,7 @@
 using CRUDAPI.Common.Exceptions;
 using CRUDAPI.Entities;
 using CRUDAPI.Infrastructure;
+using CRUDAPI.Services.CRUD;
 using Microsoft.EntityFrameworkCore;
 
 namespace CRUDAPI.Services;
@@ -14,8 +15,8 @@ public class ProductService : CRUDService<Product>
     public ProductService(ApplicationDbContext context, IMapper mapper)
       : base(context, mapper)
     {
-        _creator.SetEntityValidationAction(ValidateNewEntity);
-        _reader.SetIncludeFunction((entities) => entities.Include(p => p.ProductAmounts));
+        Creator.SetEntityValidationAction(ValidateNewEntity);
+        Reader.SetIncludeFunction((entities) => entities.Include(p => p.ProductAmounts));
     }
 
     private void ValidateNewEntity(Product entity)

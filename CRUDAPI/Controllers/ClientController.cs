@@ -1,6 +1,6 @@
 ﻿using CRUDAPI.Dtos;
 using CRUDAPI.Entities;
-using CRUDAPI.Services;
+using CRUDAPI.Services.CRUD;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CRUDAPI.Controllers;
