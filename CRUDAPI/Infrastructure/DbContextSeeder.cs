@@ -32,6 +32,9 @@ public class DbContextSeeder
         {
             var userCredential = new LoginDto() { Login = "Admin", Password = "admin" };
             _accountService.RegisterUser(userCredential, RoleNames.Admin);
+
+            userCredential = new LoginDto() { Login = "User", Password = "user" };
+            _accountService.RegisterUser(userCredential, RoleNames.User);
         }
     }
 }
