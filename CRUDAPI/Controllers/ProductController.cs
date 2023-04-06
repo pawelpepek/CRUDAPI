@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using CRUDAPI.Dtos;
 using CRUDAPI.Entities;
+using CRUDAPI.Entities.Helpers;
 using CRUDAPI.Infrastructure;
 using CrudCore.API;
 using CrudCore.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +20,10 @@ public class ProductController : EntityControllerTemplate<Product, ProductDto, C
         Creator.SetEntityValidationAction(ValidateNewEntity);
         Reader.SetIncludeFunction((entities) => entities.Include(p => p.ProductAmounts));
     }
+
+    [Authorize(Roles = RoleNames.User)]
+    public override Task Remove(int id)
+        => base.Remove(id);
 
     private void ValidateNewEntity(Product entity)
     {

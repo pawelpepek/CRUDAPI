@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CrudCore.Objects;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,22 +16,22 @@ public class EntityControllerTemplate<TEntity, TDto, TCreateDto> : EntityControl
     : base(context, mapper) { }
 
     [HttpPost]
-    public async Task<int> AddNew([FromBody] TCreateDto dto)
+    public virtual async Task<int> AddNew([FromBody] TCreateDto dto)
         => await Creator.AddEntity(dto);
 
     [HttpGet]
-    public async Task<List<TDto>> GetAll()
+    public virtual async Task<List<TDto>> GetAll()
         => await Reader.GetDtos<TDto>();
 
     [HttpGet("{id}")]
-    public async Task<TDto> GetProduct(int id)
+    public virtual async Task<TDto> GetDtoById(int id)
         => await Reader.GetDtoById<TDto>(id);
 
     [HttpPut("{id}")]
-    public async Task Update(int id, [FromBody] TCreateDto dto)
+    public virtual async Task Update(int id, [FromBody] TCreateDto dto)
         => await Updater.UpdateEntity(id, dto);
 
     [HttpDelete("{id}")]
-    public async Task Remove(int id)
+    public virtual async Task Remove(int id)
         => await Deleter.RemoveEntity(id);
 }
