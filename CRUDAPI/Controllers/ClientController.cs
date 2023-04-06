@@ -4,7 +4,6 @@ using CRUDAPI.Entities;
 using CRUDAPI.Infrastructure;
 using CrudCore.API;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace CRUDAPI.Controllers;
 
