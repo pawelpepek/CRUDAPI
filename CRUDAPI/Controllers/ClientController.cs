@@ -18,16 +18,15 @@ public class ClientController : EntityControllerTemplate<Client, ClientDto, Crea
     }
 
     [AllowAnonymous]
-    public override Task<List<ClientDto>> GetAll()
-        => base.GetAll();
+    public override Task<List<ClientDto>> GetAll() => base.GetAll();
 
-    [AllowAnonymous]
-    public override Task<ClientDto> GetDtoById(int id)
-        => base.GetDtoById(id);
+    [NonAction]
+    [Authorize(Roles = RoleNames.Forbidden)]
+    public override Task<ClientDto> GetDtoById(int id) => null;
+
+    [HttpGet("{id}")]
+    public Task<ClientSimplyDto> GetSimplyDtoById(int id) => Reader.GetDtoById<ClientSimplyDto>(id);
 
     [Authorize(Roles = RoleNames.Admin)]
-    public override Task Remove(int id)
-    {
-        return base.Remove(id);
-    }
+    public override Task Remove(int id) => base.Remove(id);
 }

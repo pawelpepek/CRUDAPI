@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using CrudCore.Objects;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace CrudCore.API;
 
 [ApiController]
-public class EntityControllerTemplate<TEntity, TDto, TCreateDto> : EntityControllerStruct<TEntity>
+public class EntityControllerTemplate<TEntity, TDto, TCreateDto> 
+    : EntityControllerStruct<TEntity>
     where TEntity : class, IIdentifiable, new()
     where TDto : class
     where TCreateDto : class

@@ -21,9 +21,8 @@ public class ProductController : EntityControllerTemplate<Product, ProductDto, C
         Reader.SetIncludeFunction((entities) => entities.Include(p => p.ProductAmounts));
     }
 
-    [Authorize(Roles = RoleNames.User)]
-    public override Task Remove(int id)
-        => base.Remove(id);
+    [Authorize(Roles = RoleNames.All)]
+    public override Task Remove(int id) => base.Remove(id);
 
     private void ValidateNewEntity(Product entity)
     {

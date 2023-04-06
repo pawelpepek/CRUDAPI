@@ -16,6 +16,8 @@ public class MappingProfile : Profile
         CreateMap<CreateProductDto, Product>();
 
         CreateMap<Client, ClientDto>();
+        CreateMap<Client, ClientSimplyDto>()
+            .ForMember(p => p.Name, x => x.MapFrom(c => $"{c.FirstName} {c.LastName}"));
         CreateMap<ClientDto, Client>();
         CreateMap<CreateClientDto, Client>();
     }
