@@ -1,5 +1,5 @@
 ﻿using CRUDAPI.Common.Exceptions;
-using CRUDAPI.Common.Helpers;
+using CRUDAPI.Common.Attributes;
 using CRUDAPI.Entities;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,7 +1,7 @@
 ﻿using CRUDAPI.Entities;
 using System.ComponentModel;
 
-namespace CRUDAPI.Common.Helpers;
+namespace CRUDAPI.Common.Attributes;
 
 public static class ObjectAttributeGetter
 {
