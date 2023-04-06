@@ -1,6 +1,7 @@
 ﻿using CRUDAPI.Configuration;
 using CRUDAPI.Dtos;
 using CRUDAPI.Entities;
+using CRUDAPI.Entities.Helpers;
 using CRUDAPI.Infrastructure;
 using CrudCore.Exceptions;
 using Microsoft.AspNetCore.Identity;
@@ -57,7 +58,7 @@ public class AccountService : IAccountService
         }
 
     }
-    public void RegisterUser(LoginDto dto, string role)
+    public void RegisterUser(LoginDto dto, string role = RoleNames.User)
     {
         var roleId = _dbContext.Roles.First(r => r.Name == role).Id;
 
