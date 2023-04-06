@@ -1,4 +1,4 @@
-﻿namespace CRUDAPI.Entities;
+﻿namespace CrudCore.Objects;
 
 public interface IIdentifiable
 {

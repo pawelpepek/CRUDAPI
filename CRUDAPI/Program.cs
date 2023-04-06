@@ -7,8 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAppAuthentication(builder.Configuration);
 builder.Services.AddAuthorization();
 
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddCRUDs();
+
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 builder.Services.AddControllers(options => options.Filters.Add<ApiExceptionFilterAttribute>());
 

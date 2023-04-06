@@ -1,13 +1,11 @@
-﻿using CRUDAPI.Dtos;
-using CRUDAPI.Entities;
-using CRUDAPI.Services.CRUD;
+﻿using CrudCore.Objects;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CRUDAPI.Controllers;
+namespace CrudCore.API;
 
 [ApiController]
-public class EntityControllerTemplate<TEntity,TDto, TCreateDto>
-    where TEntity : class,IIdentifiable, new()
+public class EntityControllerTemplate<TEntity, TDto, TCreateDto>
+    where TEntity : class, IIdentifiable, new()
     where TDto : class
     where TCreateDto : class
 {

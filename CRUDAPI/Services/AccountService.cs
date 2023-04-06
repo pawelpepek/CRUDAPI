@@ -1,8 +1,8 @@
-﻿using CRUDAPI.Common.Exceptions;
-using CRUDAPI.Configuration;
+﻿using CRUDAPI.Configuration;
 using CRUDAPI.Dtos;
 using CRUDAPI.Entities;
 using CRUDAPI.Infrastructure;
+using CrudCore.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;

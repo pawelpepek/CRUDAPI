@@ -1,5 +1,5 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using CrudCore.Objects;
+using System.ComponentModel;
 
 namespace CRUDAPI.Entities;
 

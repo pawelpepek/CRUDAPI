@@ -25,4 +25,8 @@
     <None Include="F:\Coding\CRUDAPI\CRUDAPI\.editorconfig" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CrudCore\CrudCore.csproj" />
+  </ItemGroup>
+
 </Project>

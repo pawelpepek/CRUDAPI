@@ -1,4 +1,6 @@
-﻿namespace CRUDAPI.Entities;
+﻿using CrudCore.Objects;
+
+namespace CRUDAPI.Entities;
 
 public class ProductAmount:IIdentifiable
 {

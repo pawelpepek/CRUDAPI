@@ -1,11 +1,13 @@
-﻿using CRUDAPI.Entities;
+﻿using CRUDAPI.Controllers;
+using CRUDAPI.Entities;
 using CRUDAPI.Infrastructure;
 using CRUDAPI.Services;
-using CRUDAPI.Services.CRUD;
+using CrudCore.API;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+
 
 namespace CRUDAPI.Configuration;
 
@@ -47,22 +49,9 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<DbContextSeeder>();
     }
-
     public static void AddCRUDs(this IServiceCollection services)
     {
-        services.AddCRUD<Client>()
-                .AddCRUD<Product, ProductService>();
-    }
-
-    private static IServiceCollection AddCRUD<TEntity>(this IServiceCollection services)
-        where TEntity : class, IIdentifiable, new()
-        => services.AddCRUD<TEntity, CRUDService<TEntity>>();
-
-    private static IServiceCollection AddCRUD<TEntity, TService>(this IServiceCollection services)
-        where TEntity : class, IIdentifiable, new()
-        where TService : class, ICRUDService<TEntity>
-    {
-        services.AddScoped<ICRUDService<TEntity>, TService>();
-        return services;
+        services.AddCRUD<Client, ClientService>();
+        services.AddCRUD<Product, ProductService>();
     }
 }

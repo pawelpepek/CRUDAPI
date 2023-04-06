@@ -1,9 +1,8 @@
-﻿using CRUDAPI.Common.Exceptions;
-using CRUDAPI.Common.Attributes;
-using CRUDAPI.Entities;
+﻿using CrudCore.Objects;
+using CrudCore.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
-namespace CRUDAPI.Services.CRUD;
+namespace CrudCore.API.Creators;
 
 public class EntityFinder<TEntity> where TEntity : class, IIdentifiable, new()
 {

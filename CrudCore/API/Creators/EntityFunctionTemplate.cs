@@ -1,26 +1,25 @@
 ﻿using AutoMapper;
-using CRUDAPI.Entities;
-using CRUDAPI.Infrastructure;
+using CrudCore.Objects;
 using Microsoft.EntityFrameworkCore;
 
-namespace CRUDAPI.Services.CRUD;
+namespace CrudCore.API.Creators;
 
 public abstract class EntityFunctionTemplate<TEntity> where TEntity : class, IIdentifiable, new()
 {
     protected readonly IMapper _mapper;
-    protected readonly ApplicationDbContext _context;
+    protected readonly DbContext _context;
     protected readonly CancellationToken _cancellationToken;
     protected readonly DbSet<TEntity> _set;
 
     protected Func<IQueryable<TEntity>, IQueryable<TEntity>> _includeFunc = (entity) => entity;
     protected Action<TEntity> _entityValidationAction = (entity) => { };
 
-    public EntityFunctionTemplate(ApplicationDbContext context, IMapper mapper, CancellationToken cancellationToken)
+    public EntityFunctionTemplate(DbContext context, IMapper mapper, CancellationToken cancellationToken)
         : this(context, mapper)
     {
         _cancellationToken = cancellationToken;
     }
-    public EntityFunctionTemplate(ApplicationDbContext context, IMapper mapper)
+    public EntityFunctionTemplate(DbContext context, IMapper mapper)
     {
         _context = context;
         _mapper = mapper;

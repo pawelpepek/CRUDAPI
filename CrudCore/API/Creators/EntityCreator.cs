@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using CRUDAPI.Entities;
-using CRUDAPI.Infrastructure;
+using CrudCore.Objects;
+using Microsoft.EntityFrameworkCore;
 
-namespace CRUDAPI.Services.CRUD;
+namespace CrudCore.API.Creators;
 
-public class EntityCreator<TEntity> : EntityFunctionTemplate<TEntity> 
+public class EntityCreator<TEntity> : EntityFunctionTemplate<TEntity>
     where TEntity : class, IIdentifiable, new()
 {
-    public EntityCreator(ApplicationDbContext context, IMapper mapper, CancellationToken cancellationToken)
+    public EntityCreator(DbContext context, IMapper mapper, CancellationToken cancellationToken)
         : base(context, mapper, cancellationToken) { }
-    public EntityCreator(ApplicationDbContext context, IMapper mapper) : base(context, mapper) { }
+    public EntityCreator(DbContext context, IMapper mapper) : base(context, mapper) { }
 
     public async Task<int> AddEntity<TDto>(TDto dto) where TDto : class
     {

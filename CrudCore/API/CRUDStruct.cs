@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
-using CRUDAPI.Entities;
-using CRUDAPI.Infrastructure;
+using CrudCore.API.Creators;
+using CrudCore.Objects;
 using Microsoft.EntityFrameworkCore;
 
-namespace CRUDAPI.Services.CRUD;
+namespace CrudCore.API;
 
 public abstract class CRUDStruct<TEntity> where TEntity : class, IIdentifiable, new()
 {
     private readonly IMapper _mapper;
-    protected readonly ApplicationDbContext _context;
+    protected readonly DbContext _context;
     protected readonly CancellationToken _cancellationToken;
     protected readonly DbSet<TEntity> _set;
 
@@ -17,7 +17,7 @@ public abstract class CRUDStruct<TEntity> where TEntity : class, IIdentifiable, 
     protected EntityUpdater<TEntity> Updater { get; }
     protected EntityDeleter<TEntity> Deleter { get; }
 
-    public CRUDStruct(ApplicationDbContext context, IMapper mapper, CancellationToken cancellationToken)
+    public CRUDStruct(DbContext context, IMapper mapper, CancellationToken cancellationToken)
         : this(context, mapper)
     {
         _cancellationToken = cancellationToken;
@@ -27,7 +27,7 @@ public abstract class CRUDStruct<TEntity> where TEntity : class, IIdentifiable, 
         Updater = new EntityUpdater<TEntity>(context, _mapper, cancellationToken);
         Deleter = new EntityDeleter<TEntity>(context, _mapper, cancellationToken);
     }
-    public CRUDStruct(ApplicationDbContext context, IMapper mapper)
+    public CRUDStruct(DbContext context, IMapper mapper)
     {
         _context = context;
         _mapper = mapper;

@@ -1,4 +1,4 @@
-﻿namespace CRUDAPI.Common.Exceptions;
+﻿namespace CrudCore.Exceptions;
 
 public class NotFoundException<TId> : CustomException
 {

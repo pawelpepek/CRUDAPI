@@ -1,6 +1,7 @@
-﻿using CRUDAPI.Entities;
+﻿
+using CrudCore.Objects;
 
-namespace CRUDAPI.Services.CRUD;
+namespace CrudCore.API;
 public interface ICRUDService<TEntity> where TEntity : class, IIdentifiable, new()
 {
     Task<int> AddEntity<TDto>(TDto dto) where TDto : class;

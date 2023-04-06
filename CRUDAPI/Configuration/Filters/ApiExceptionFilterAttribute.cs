@@ -1,4 +1,4 @@
-﻿using CRUDAPI.Common.Exceptions;
+﻿using CrudCore.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 

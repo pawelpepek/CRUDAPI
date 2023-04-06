@@ -1,18 +1,17 @@
 ﻿using AutoMapper;
-using CRUDAPI.Entities;
-using CRUDAPI.Infrastructure;
+using CrudCore.Objects;
 using Microsoft.EntityFrameworkCore;
 
-namespace CRUDAPI.Services.CRUD;
+namespace CrudCore.API.Creators;
 
-public class EntityReader<TEntity> : EntityFunctionTemplate<TEntity> 
+public class EntityReader<TEntity> : EntityFunctionTemplate<TEntity>
     where TEntity : class, IIdentifiable, new()
 {
     protected bool _asNoTracking = true;
 
-    public EntityReader(ApplicationDbContext context, IMapper mapper, CancellationToken cancellationToken)
+    public EntityReader(DbContext context, IMapper mapper, CancellationToken cancellationToken)
         : base(context, mapper, cancellationToken) { }
-    public EntityReader(ApplicationDbContext context, IMapper mapper) : base(context, mapper) { }
+    public EntityReader(DbContext context, IMapper mapper) : base(context, mapper) { }
 
     public EntityReader<TEntity> SetAsNoTracking(bool tracking = true)
     {

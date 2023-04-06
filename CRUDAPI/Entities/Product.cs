@@ -1,4 +1,5 @@
 ﻿using CRUDAPI.Entities.Enums;
+using CrudCore.Objects;
 
 namespace CRUDAPI.Entities;
 
