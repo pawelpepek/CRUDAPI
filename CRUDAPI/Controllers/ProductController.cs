@@ -12,16 +12,8 @@ namespace CRUDAPI.Controllers;
 [Route("api/product")]
 public class ProductController : EntityControllerTemplate<Product, ProductDto, CreateProductDto>
 {
-    public ProductController(ICRUDService<Product> crud) : base(crud) { }
-}
-
-public class ProductService : CRUDService<Product>
-{
-    public ProductService(ApplicationDbContext context, IMapper mapper, CancellationToken cancellationToken)
-        : base(context, mapper, cancellationToken) { }
-
-    public ProductService(ApplicationDbContext context, IMapper mapper)
-      : base(context, mapper)
+    public ProductController(ApplicationDbContext context, IMapper mapper)
+    : base(context, mapper)
     {
         Creator.SetEntityValidationAction(ValidateNewEntity);
         Reader.SetIncludeFunction((entities) => entities.Include(p => p.ProductAmounts));

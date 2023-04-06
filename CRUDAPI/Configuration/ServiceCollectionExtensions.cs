@@ -1,8 +1,6 @@
-﻿using CRUDAPI.Controllers;
-using CRUDAPI.Entities;
+﻿using CRUDAPI.Entities;
 using CRUDAPI.Infrastructure;
 using CRUDAPI.Services;
-using CrudCore.API;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -48,10 +46,5 @@ public static class ServiceCollectionExtensions
         services.AddScoped<DbContextSeeder>();
 
         services.AddScoped<DbContextSeeder>();
-    }
-    public static void AddCRUDs(this IServiceCollection services)
-    {
-        services.AddCRUD<Client, ClientService>();
-        services.AddCRUD<Product, ProductService>();
     }
 }

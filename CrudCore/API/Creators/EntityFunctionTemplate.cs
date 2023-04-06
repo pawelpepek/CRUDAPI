@@ -8,17 +8,11 @@ public abstract class EntityFunctionTemplate<TEntity> where TEntity : class, IId
 {
     protected readonly IMapper _mapper;
     protected readonly DbContext _context;
-    protected readonly CancellationToken _cancellationToken;
     protected readonly DbSet<TEntity> _set;
 
     protected Func<IQueryable<TEntity>, IQueryable<TEntity>> _includeFunc = (entity) => entity;
     protected Action<TEntity> _entityValidationAction = (entity) => { };
 
-    public EntityFunctionTemplate(DbContext context, IMapper mapper, CancellationToken cancellationToken)
-        : this(context, mapper)
-    {
-        _cancellationToken = cancellationToken;
-    }
     public EntityFunctionTemplate(DbContext context, IMapper mapper)
     {
         _context = context;
@@ -43,11 +37,11 @@ public abstract class EntityFunctionTemplate<TEntity> where TEntity : class, IId
     {
         var set = _includeFunc(_set);
 
-        return await new EntityFinder<TEntity>(set, _cancellationToken)
+        return await new EntityFinder<TEntity>(set)
                 .ShowNotFoundError()
                 .FindById(id);
     }
 
     protected async Task SaveChanges()
-        => await _context.SaveChangesAsync(_cancellationToken);
+        => await _context.SaveChangesAsync();
 }

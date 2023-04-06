@@ -9,8 +9,6 @@ public class EntityReader<TEntity> : EntityFunctionTemplate<TEntity>
 {
     protected bool _asNoTracking = true;
 
-    public EntityReader(DbContext context, IMapper mapper, CancellationToken cancellationToken)
-        : base(context, mapper, cancellationToken) { }
     public EntityReader(DbContext context, IMapper mapper) : base(context, mapper) { }
 
     public EntityReader<TEntity> SetAsNoTracking(bool tracking = true)
@@ -34,6 +32,6 @@ public class EntityReader<TEntity> : EntityFunctionTemplate<TEntity>
     private async Task<List<TEntity>> GetAll()
     {
         var set = _asNoTracking ? _set.AsNoTracking() : _set;
-        return await _includeFunc(set).ToListAsync(_cancellationToken);
+        return await _includeFunc(set).ToListAsync();
     }
 }
