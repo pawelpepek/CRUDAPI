@@ -2,7 +2,7 @@
 using CrudCore.Objects;
 using Microsoft.EntityFrameworkCore;
 
-namespace CrudCore.API.Creators;
+namespace CrudCore.API.EntityFunctions;
 
 public class EntityUpdater<TEntity> : EntityFunctionTemplate<TEntity>
     where TEntity : class, IIdentifiable, new()

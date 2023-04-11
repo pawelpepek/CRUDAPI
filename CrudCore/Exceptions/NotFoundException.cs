@@ -1,7 +1,17 @@
-﻿namespace CrudCore.Exceptions;
+﻿using CrudCore.Objects;
 
-public class NotFoundException<TId> : CustomException
+namespace CrudCore.Exceptions;
+
+public class NotFoundException<TEntity> : CustomException
+    where TEntity : class, IIdentifiable
 {
-    public NotFoundException(string entityName, TId id)
+    public NotFoundException(string entityName, int id)
         : base($"Nie istnieje {entityName} o identifikatorze równym {id}.", 404) { }
+
+    public static NotFoundException<TEntity> Generate(int id)
+    {
+        var entityName = ObjectAttributeGetter.GetObjectName<TEntity>();
+
+        return new NotFoundException<TEntity>(entityName, id);
+    }
 }

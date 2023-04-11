@@ -2,9 +2,9 @@
 using CrudCore.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
-namespace CrudCore.API.Creators;
+namespace CrudCore.API.EntityFunctions;
 
-public class EntityFinder<TEntity> 
+public class EntityFinder<TEntity>
     where TEntity : class, IIdentifiable, new()
 {
     private readonly IQueryable<TEntity> _entitySet;
@@ -28,8 +28,7 @@ public class EntityFinder<TEntity>
 
         if (entity == null && _showNotFoundError)
         {
-            var entityName = ObjectAttributeGetter.GetObjectName<TEntity>();
-            throw new NotFoundException<int>(entityName, id);
+            throw NotFoundException<TEntity>.Generate(id);
         }
 
         return entity;

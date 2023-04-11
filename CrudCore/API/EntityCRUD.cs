@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CrudCore.API.Creators;
+using CrudCore.API.EntityFunctions;
 using CrudCore.Objects;
 using Microsoft.EntityFrameworkCore;
 
