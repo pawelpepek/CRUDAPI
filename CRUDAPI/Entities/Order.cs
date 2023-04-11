@@ -1,7 +1,9 @@
 ﻿using CrudCore.Objects;
+using System.ComponentModel;
 
 namespace CRUDAPI.Entities;
 
+[DisplayName("zamówienie")]
 public class Order : IIdentifiable
 {
     public int Id { get; set; }

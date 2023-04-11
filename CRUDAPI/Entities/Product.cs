@@ -1,8 +1,10 @@
 ﻿using CRUDAPI.Entities.Enums;
 using CrudCore.Objects;
+using System.ComponentModel;
 
 namespace CRUDAPI.Entities;
 
+[DisplayName("produkt")]
 public class Product : IIdentifiable
 {
     public int Id { get; set; }
