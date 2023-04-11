@@ -13,6 +13,11 @@ public class EntityUpdater<TEntity> : EntityFunctionTemplate<TEntity>
     {
         var entity = await GetEntityById(id);
 
-        //TODO: Deep Clone
+        var newEntity=_mapper.Map<TEntity>(dto);
+        _entityAction(newEntity);
+
+        _mapper.Map(newEntity, entity);
+
+        await SaveChanges();
     }
 }
