@@ -1,9 +1,25 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <RepositoryUrl>https://github.com/pawelpepek/CRUDAPI</RepositoryUrl>
+    <PackageReadmeFile></PackageReadmeFile>
+    <PackageTags>crud, ef core, asp.net, entity framework, template, .net, rest, api</PackageTags>
+    <Description>Generic controller template implementing basic CRUD functions:
+- create entity from TCreateDto
+- read entities using List&lt;TDto&gt;
+- read entity with given id using TOneDto
+- update entity with given id from TCreateDto
+- delete entity with given id.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageId>Crud.EFCore.Template</PackageId>
+    <Title>Generic controller template implementing basic CRUD functions</Title>
+    <Authors>Paweł Pępek</Authors>
+    <Company>Paweł Pępek</Company>
+    <Product>$(AssemblyName)Template</Product>
   </PropertyGroup>
 
   <ItemGroup>

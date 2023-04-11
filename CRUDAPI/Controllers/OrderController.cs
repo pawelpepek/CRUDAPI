@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
 using CRUDAPI.Dtos;
 using CRUDAPI.Entities;
-using CRUDAPI.Entities.Helpers;
 using CRUDAPI.Infrastructure;
 using CrudCore.API;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Data;
 
 namespace CRUDAPI.Controllers;
 
