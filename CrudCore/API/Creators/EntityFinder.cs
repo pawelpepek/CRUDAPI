@@ -4,7 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CrudCore.API.Creators;
 
-public class EntityFinder<TEntity> where TEntity : class, IIdentifiable, new()
+public class EntityFinder<TEntity> 
+    where TEntity : class, IIdentifiable, new()
 {
     private readonly IQueryable<TEntity> _entitySet;
 

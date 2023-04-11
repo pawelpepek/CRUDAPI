@@ -4,14 +4,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CrudCore.API.Creators;
 
-public abstract class EntityFunctionTemplate<TEntity> where TEntity : class, IIdentifiable, new()
+public abstract class EntityFunctionTemplate<TEntity> 
+    where TEntity : class, IIdentifiable, new()
 {
     protected readonly IMapper _mapper;
     protected readonly DbContext _context;
     protected readonly DbSet<TEntity> _set;
 
     protected Func<IQueryable<TEntity>, IQueryable<TEntity>> _includeFunc = (entity) => entity;
-    protected Action<TEntity> _entityValidationAction = (entity) => { };
+    protected Action<TEntity> _entityAction = (entity) => { };
 
     public EntityFunctionTemplate(DbContext context, IMapper mapper)
     {
@@ -21,9 +22,9 @@ public abstract class EntityFunctionTemplate<TEntity> where TEntity : class, IId
         _set = context.Set<TEntity>();
     }
 
-    public EntityFunctionTemplate<TEntity> SetEntityValidationAction(Action<TEntity> entityValidationAction)
+    public EntityFunctionTemplate<TEntity> SetEntityAction(Action<TEntity> entityAction)
     {
-        _entityValidationAction = entityValidationAction;
+        _entityAction = entityAction;
         return this;
     }
 
