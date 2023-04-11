@@ -12,16 +12,20 @@ using Microsoft.EntityFrameworkCore;
 namespace CRUDAPI.Controllers;
 
 [Route("api/product")]
+[Authorize(Roles = RoleNames.Any)]
 public class ProductController : EntityControllerTemplate<Product, ProductDto, CreateProductDto>
 {
     public ProductController(ApplicationDbContext context, IMapper mapper)
     : base(context, mapper)
     {
-        Creator.SetEntityValidationAction(ValidateNewEntity);
+        Creator.SetEntityAction(ValidateNewEntity);
         Reader.SetIncludeFunction((entities) => entities.Include(p => p.ProductAmounts));
     }
 
-    [Authorize(Roles = RoleNames.All)]
+    [AllowAnonymous]
+    public override Task<List<ProductDto>> GetAll() => base.GetAll();
+
+    [NonAction]
     public override Task Remove(int id) => base.Remove(id);
 
     private void ValidateNewEntity(Product entity)
