@@ -20,6 +20,7 @@
     <Authors>Paweł Pępek</Authors>
     <Company>Paweł Pępek</Company>
     <Product>$(AssemblyName)Template</Product>
+    <Version>7.0.4</Version>
   </PropertyGroup>
 
   <ItemGroup>
