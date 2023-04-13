@@ -7,12 +7,35 @@ Generic controller template implementing basic CRUD functions:
 - update entity with given id from `TCreateDto`
 - delete entity with given id.
 
-You could find this NuGet [here](https://www.nuget.org/packages/Crud.EFCore.Template).
+You will find this NuGet [here](https://www.nuget.org/packages/Crud.EFCore.Template).
 
 ## User Manual
 
+### Requirements
+
+Web API must have NuGet packages installed:
+- `AutoMapper`,
+- `Microsoft.EntityFrameworkCore`
+
+and configure:
+- AutoMapper e.g.
+```c#
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+```
+- Application DbContext e.g.
+```c#
+    public static void AddAppDbContext(this IServiceCollection services, ConfigurationManager configuration)
+    {
+        services.AddDbContext<ApplicationDbContext>
+                (options => options.UseNpgsql(configuration.GetConnectionString("DbConnection")));
+        services.AddScoped<DbContextSeeder>();
+    }
+```
+
+
 ### Using EntityControllerTemplate class
-0. Create the controller mapping loader in the API project one for each entity:
+#### One-time configuration:
+0. Create the controller mapping loader in the API project:
 ```c#
 using CrudCore.API.Mapping;
 
@@ -22,7 +45,8 @@ public class AppMappingProfile : MappingProfile
 }
 ```
 
-1. Add to the entity interface:
+#### For any entity:
+1. Add an interface to the entity:
 ```c#
 using CrudCore.Objects;
 
@@ -80,6 +104,7 @@ public class ClientMapping : SelfMapFrom<Client>
 4. Create the controller (which inherits from the EntityControllerTemplate generic class):
 ```c#
 using CrudCore.API;
+using Microsoft.AspNetCore.Mvc;
 
 [Route("api/client")]
 [Authorize(Roles = RoleNames.Admin)]
@@ -99,7 +124,7 @@ public class ClientController
 
 
 ### Customize controllers functions
-You could use entity functions:
+You can use entity functions:
 - `Creater` to create new entity,
 - `Reader` to get list of entities,
 - `Reader2` to get one entity with given id,
@@ -112,7 +137,7 @@ public EntityFunctionTemplate<TEntity> SetEntityAction(Action<TEntity> entityAct
 public EntityFunctionTemplate<TEntity> SetQueryableFunction(Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc){}
 ```
 
-The `SetEntityAction` method validate entity:
+The `SetEntityAction` method validate the entity:
 ```c#
 Creator.SetEntityAction(ValidateNewEntity);
 
@@ -134,7 +159,7 @@ private void ValidateNewEntity(Product entity)
         }
     }
 ```
-The `SetQueryableFunction` method manipulate entity set:
+The `SetQueryableFunction` method manipulate the entitys set:
 ```c#
 Reader.SetQueryableFunction((entities) => entities.Include(p => p.ProductAmounts));
 ```
@@ -205,7 +230,9 @@ public class OrderController : EntityCRUD<Order>
 }
 ```
 
-If you have any questions write to [me](mailto:pawel.pepek@gmail.com?subject=[GitHub]%20CrudeCore).
+#### More information you can find in the CRUDAPI project in this solution.
+
+#### If you have any questions write to [me](mailto:pawel.pepek@gmail.com?subject=[GitHub]%20CrudeCore).
 
 ## License
 
