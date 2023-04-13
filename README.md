@@ -14,7 +14,7 @@ You will find this NuGet [here](https://www.nuget.org/packages/Crud.EFCore.Templ
 ### Requirements
 
 Web API must have NuGet packages installed:
-- `AutoMapper`,
+- `AutoMapper.Extensions.Microsoft.DependencyInjection`,
 - `Microsoft.EntityFrameworkCore`
 
 and configure:
