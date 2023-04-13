@@ -1,13 +1,14 @@
 ﻿using CRUDAPI.Entities;
 using CRUDAPI.Infrastructure;
 using CRUDAPI.Services;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
-
 
 namespace CRUDAPI.Configuration;
 
@@ -19,23 +20,9 @@ public static class ServiceCollectionExtensions
         configuration.GetSection("Authentication").Bind(authenticationSettings);
 
         services.AddSingleton(authenticationSettings);
-        services.AddAuthentication(option =>
-        {
-            option.DefaultAuthenticateScheme = "Bearer";
-            option.DefaultScheme = "Bearer";
-            option.DefaultChallengeScheme = "Bearer";
-        }).AddJwtBearer(cfg =>
-        {
-            cfg.RequireHttpsMetadata = false;
-            cfg.SaveToken = true;
-            cfg.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidIssuer = authenticationSettings.JwtIssuer,
-                ValidAudience = authenticationSettings.JwtIssuer,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationSettings.JwtKey))
-            };
-        }
-        );
+
+        services.AddAuthentication(AuthenticationOptionsSetup)
+                .AddJwtBearer(options => JwtBearerOptionsSetup(options, authenticationSettings));
 
         services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
@@ -45,39 +32,57 @@ public static class ServiceCollectionExtensions
     {
         services.AddDbContext<ApplicationDbContext>
                 (options => options.UseNpgsql(configuration.GetConnectionString("DbConnection")));
+
         services.AddScoped<DbContextSeeder>();
     }
 
     public static void AddSwaggerGenAuthorized(this IServiceCollection services)
+        => services.AddSwaggerGen(SwaggerSetup);
+
+    private static void AuthenticationOptionsSetup(AuthenticationOptions options)
     {
-        services.AddSwaggerGen(
-            setup =>
+        options.DefaultAuthenticateScheme = "Bearer";
+        options.DefaultScheme = "Bearer";
+        options.DefaultChallengeScheme = "Bearer";
+    }
+
+    private static void JwtBearerOptionsSetup(JwtBearerOptions options, AuthenticationSettings authenticationSettings)
+    {
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidIssuer = authenticationSettings.JwtIssuer,
+            ValidAudience = authenticationSettings.JwtIssuer,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationSettings.JwtKey))
+        };
+    }
+
+    private static void SwaggerSetup(SwaggerGenOptions options)
+    {
+        var jwtSecurityScheme = new OpenApiSecurityScheme
+        {
+            BearerFormat = "JWT",
+            Name = "JWT Authentication",
+            In = ParameterLocation.Header,
+            Type = SecuritySchemeType.Http,
+            Scheme = JwtBearerDefaults.AuthenticationScheme,
+            Description = "Put **_ONLY_** your JWT Bearer token on textbox below!",
+
+            Reference = new OpenApiReference
             {
-                var jwtSecurityScheme = new OpenApiSecurityScheme
-                {
-                    BearerFormat = "JWT",
-                    Name = "JWT Authentication",
-                    In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.Http,
-                    Scheme = JwtBearerDefaults.AuthenticationScheme,
-                    Description = "Put **_ONLY_** your JWT Bearer token on textbox below!",
-                    
-                    Reference = new OpenApiReference
-                    {
-                        Id = JwtBearerDefaults.AuthenticationScheme,
-                        Type = ReferenceType.SecurityScheme
-                    }
-                };
-
-                setup.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
-
-                setup.AddSecurityRequirement
-                (
-                    new OpenApiSecurityRequirement { { jwtSecurityScheme, Array.Empty<string>() } }
-                );
-
-                setup.OrderActionsBy(e => $"{e.RelativePath}_{e.HttpMethod}");
+                Id = JwtBearerDefaults.AuthenticationScheme,
+                Type = ReferenceType.SecurityScheme
             }
+        };
+
+        options.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
+
+        options.AddSecurityRequirement
+        (
+            new OpenApiSecurityRequirement { { jwtSecurityScheme, Array.Empty<string>() } }
         );
+
+        options.OrderActionsBy(e => $"{e.RelativePath}_{e.HttpMethod}");
     }
 }
