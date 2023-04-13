@@ -12,7 +12,7 @@ You could find this NuGet [here](https://www.nuget.org/packages/Crud.EFCore.Temp
 ## User Manual
 
 ### Using EntityControllerTemplate class
-0. Setup controller mapping loader in your API project ones for every entity:
+0. Create the controller mapping loader in the API project one for each entity:
 ```c#
 using CrudCore.API.Mapping;
 
@@ -57,7 +57,7 @@ public class CreateClientDto
 }
 ```
 
-3. Create AutoMapper mapping (which inherits from the SelfMapFrom generic class):
+3. Create the AutoMapper mapping class (which inherits from the SelfMapFrom generic class):
 ```c#
 using CrudCore.API.Mapping;
 
@@ -77,7 +77,7 @@ public class ClientMapping : SelfMapFrom<Client>
 }
 ```
 
-4. Create controller (which inherits from the EntityControllerTemplate generic class):
+4. Create the controller (which inherits from the EntityControllerTemplate generic class):
 ```c#
 using CrudCore.API;
 
@@ -91,7 +91,7 @@ public class ClientController
 }
 ```
 
-`And that's it!`
+`And that's all!`
 
 `This is the result:`
 
@@ -112,7 +112,7 @@ public EntityFunctionTemplate<TEntity> SetEntityAction(Action<TEntity> entityAct
 public EntityFunctionTemplate<TEntity> SetQueryableFunction(Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc){}
 ```
 
-`SetEntityAction` validate entity:
+The `SetEntityAction` method validate entity:
 ```c#
 Creator.SetEntityAction(ValidateNewEntity);
 
@@ -134,7 +134,7 @@ private void ValidateNewEntity(Product entity)
         }
     }
 ```
-`SetQueryableFunction` manipulate entity set:
+The `SetQueryableFunction` method manipulate entity set:
 ```c#
 Reader.SetQueryableFunction((entities) => entities.Include(p => p.ProductAmounts));
 ```
@@ -205,7 +205,7 @@ public class OrderController : EntityCRUD<Order>
 }
 ```
 
-If you have any questions write to [pawel.pepek@gmail.com](mailto:pawel.pepek@gmail.com?subject=[GitHub]%20CrudeCore)
+If you have any questions write to [me](mailto:pawel.pepek@gmail.com?subject=[GitHub]%20CrudeCore).
 
 ## License
 
