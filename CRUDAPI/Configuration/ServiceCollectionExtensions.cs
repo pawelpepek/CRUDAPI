@@ -46,8 +46,6 @@ public static class ServiceCollectionExtensions
         services.AddDbContext<ApplicationDbContext>
                 (options => options.UseNpgsql(configuration.GetConnectionString("DbConnection")));
         services.AddScoped<DbContextSeeder>();
-
-        services.AddScoped<DbContextSeeder>();
     }
 
     public static void AddSwaggerGenAuthorized(this IServiceCollection services)
