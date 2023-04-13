@@ -1,4 +1,5 @@
-﻿using CrudCore.Objects;
+﻿using CrudCore.API.Languages;
+using CrudCore.Objects;
 
 namespace CrudCore.Exceptions;
 
@@ -6,7 +7,7 @@ public class NotFoundException<TEntity> : CustomException
     where TEntity : class, IIdentifiable
 {
     public NotFoundException(string entityName, int id)
-        : base($"Nie istnieje {entityName} o identifikatorze równym {id}.", 404) { }
+        : base(String.Format(LangualgeDictionary.GetAppString(AppString.NotFoundMessage), entityName, id), 404) { }
 
     public static NotFoundException<TEntity> Generate(int id)
     {
