@@ -1,7 +1,6 @@
-﻿namespace CrudCore.API.Languages
+﻿namespace CrudCore.API.Languages;
+
+internal enum AppString
 {
-    internal enum AppString
-    {
-        NotFoundMessage
-    }
+    NotFoundMessage
 }
