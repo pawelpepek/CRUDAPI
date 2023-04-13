@@ -28,7 +28,7 @@ public abstract class EntityFunctionTemplate<TEntity>
         return this;
     }
 
-    public EntityFunctionTemplate<TEntity> SetIncludeFunction(Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
+    public EntityFunctionTemplate<TEntity> SetQueryableFunction(Func<IQueryable<TEntity>, IQueryable<TEntity>> includeFunc)
     {
         _includeFunc = includeFunc;
         return this;

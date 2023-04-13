@@ -14,7 +14,7 @@ public class OrderController : EntityCRUD<Order>
 {
     public OrderController(ApplicationDbContext context, IMapper mapper) : base(context, mapper)
     {
-        Reader2.SetIncludeFunction(entities => entities.Include(p => p.Products));
+        Reader2.SetQueryableFunction(entities => entities.Include(p => p.Products));
     }
 
     [HttpGet]

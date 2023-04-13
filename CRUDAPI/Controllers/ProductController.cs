@@ -19,7 +19,7 @@ public class ProductController : EntityControllerTemplate<Product, ProductDto, C
     : base(context, mapper)
     {
         Creator.SetEntityAction(ValidateNewEntity);
-        Reader.SetIncludeFunction((entities) => entities.Include(p => p.ProductAmounts));
+        Reader.SetQueryableFunction((entities) => entities.Include(p => p.ProductAmounts));
     }
 
     [AllowAnonymous]
