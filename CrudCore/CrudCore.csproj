@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+	<TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/pawelpepek/CRUDAPI</RepositoryUrl>
-    <PackageReadmeFile></PackageReadmeFile>
-    <PackageTags>crud, ef core, asp.net, entity framework, template, .net, rest, api</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>crud, ef core, asp.net, entity framework, template, .net, rest, api, sql, sql server, postres, sqlight, fetch, post, get, put, delete</PackageTags>
     <Description>Generic controller template implementing basic CRUD functions:
 - create entity from TCreateDto
 - read entities using List&lt;TDto&gt;
@@ -20,13 +20,28 @@
     <Authors>Paweł Pępek</Authors>
     <Company>Paweł Pępek</Company>
     <Product>$(AssemblyName)Template</Product>
-    <Version>7.0.4</Version>
+    <Version>6.0.16</Version>
+    <PackageIcon>crud.png</PackageIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.16" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="crud.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
