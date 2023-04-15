@@ -1,4 +1,4 @@
-# CRUDAPI and CrudCore NuGet package (net7.0)
+# CRUDAPI and CrudCore NuGet package
 
 Generic controller template implementing basic CRUD functions:
 - create entity from `TCreateDto`
